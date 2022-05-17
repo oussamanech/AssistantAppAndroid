@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.bluetooth.BluetoothAdapter
 import android.content.ClipboardManager
 import android.content.Intent
+import android.content.res.Resources
 import android.hardware.camera2.CameraManager
 import android.media.Ringtone
 import android.media.RingtoneManager
@@ -15,8 +16,10 @@ import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
 import android.util.Log
+import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewAnimationUtils
 import android.view.ViewTreeObserver
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -24,6 +27,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.assistantmajda.R
 import com.example.assistantmajda.data.AssistantDatabase
 import com.example.assistantmajda.databinding.ActivityAssistantBinding
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -239,14 +244,94 @@ class AssistantActivity : AppCompatActivity() {
     }//end on create
 
     private fun checkIfSpeechRecognizerAviable() {
-        if(SpeechRecognizer.isRecognitionAvailable(this)){
-            Log.d(logsr,"yes")
-        }else{
-            Log.d(logsr,"false")
+        if (SpeechRecognizer.isRecognitionAvailable(this)) {
+            Log.d(logsr, "yes")
+        } else {
+            Log.d(logsr, "false")
         }
     }
 
-    fun speak(){
+    fun speak(text: String) {
+        textToSpeach.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
+        assistantViewModel.senMessageToDasaBase(keeper, text)
+    }
+
+    fun getDate() {
+        val calendar = Calendar.getInstance()
+        val formatteDatte = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.time)
+        val splitDate = formatteDatte.split(",").toTypedArray()
+        val date = splitDate[1].trim {
+            it <= ' '
+        }
+        speak("the date is $date")
+    }
+
+    fun getTime() {
+        val calendar = Calendar.getInstance()
+        val formatteDatte = SimpleDateFormat("HH:mm:ss")
+        val time: String = formatteDatte.format(calendar.getTime())
+
+        speak("the time is $time")
+    }
+
+    fun makeAPhoneCall() {
+
+    }
+
+    fun sendSMS() {
+
+    }
+
+    fun readSMS() {
+
+    }
+
+    fun openGmail() {
+
+    }
+
+    fun openWhatsapp() {
+
+    }
+
+    fun circularReaalActivity() {
+
+        val cx: Int = binding.assistantConstraintLayout.getRight() - getDips(44)
+        val cy: Int = binding.assistantConstraintLayout.getBottom() - getDips(44)
+
+        val finalRadius: Int = Math.max(
+            binding.assistantConstraintLayout.getWidth(),
+            binding.assistantConstraintLayout.getHeight()
+        )
+
+        val circularReveal = ViewAnimationUtils.createCircularReveal(
+            binding.assistantConstraintLayout,
+            cx,
+            cy,
+            0f,
+            finalRadius.toFloat()
+        )
+
+        circularReveal.duration = 1250
+        binding.assistantConstraintLayout.setVisibility(View.VISIBLE)
+        circularReveal.start()
+
+    }
+
+    private fun getDips(dps: Int): Int{
+        val resources: Resources = resources
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            dps.toFloat(),
+            resources.getDisplayMetrics()
+        ).toInt()
+    }
+
+
+    override fun onBackPressed() {
+//        super.onBackPressed()
+    
+
 
     }
 
