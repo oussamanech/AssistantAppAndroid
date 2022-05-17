@@ -7,16 +7,16 @@ import com.example.assistantmajda.data.Assistant
 import com.example.assistantmajda.data.AssistantDao
 import kotlinx.coroutines.*
 
-class AssistantViewModel (
-        val database: AssistantDao,
-                application: Application) : AndroidViewModel(application)
-{
+class AssistantViewModel (val database: AssistantDao,application: Application): AndroidViewModel(application) {
 
-                    private var viewModelJob = Job()
+    private var viewModelJob = Job()
+    private var imageIndex: Int = 0
+
     override fun onCleard(){
         super.onCleared()
         viewModelJob.cancel()
     }
+
 
     private  val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 

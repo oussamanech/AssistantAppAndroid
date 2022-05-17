@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName="assistant_messages_table")
 
-class Assistant (
+data class Assistant {
 
 
 
@@ -21,3 +21,4 @@ class Assistant (
                     var human_message:String ="DEFAULT_MESSAGE")
 
 
+}

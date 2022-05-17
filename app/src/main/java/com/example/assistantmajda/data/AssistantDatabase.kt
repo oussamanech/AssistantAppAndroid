@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase
 
 @Database(entities = [Assistant::class],version = 1,exportSchema = false)
 
-abstract class AssistantDatabase : RoomDatabase {
+abstract class AssistantDatabase : RoomDatabase() {
 
     abstract  val assisstantDao: AssistantDao
 
