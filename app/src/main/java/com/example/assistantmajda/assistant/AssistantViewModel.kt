@@ -12,11 +12,15 @@ class AssistantViewModel (val database: AssistantDao,application: Application): 
     private var viewModelJob = Job()
     private var imageIndex: Int = 0
 
-    override fun onCleard(){
+//    override fun onCleard(){
+//        super.onCleared()
+//        viewModelJob.cancel()
+//    }
+
+    fun onCleard(){
         super.onCleared()
         viewModelJob.cancel()
     }
-
 
     private  val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 

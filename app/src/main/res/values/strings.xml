@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Assistant Majda</string>
+
+    <string name="first_message">Hello, How I can help you? </string>
+    <string name="second_message">Can you tell me something?</string>
+
+    <string name="OPEN_WEATHER_MAP_API_KEY">739f87a49046bf7766e487d84dd0a4f0</string>
+
+
 </resources>
