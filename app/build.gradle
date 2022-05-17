@@ -36,6 +36,9 @@ android {
     }
 }
 
+
+
+
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
@@ -72,6 +75,7 @@ dependencies {
     implementation "com.github.shubham0204:Text2Summary-android:alpha-05"
 
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
+    implementation 'com.github.KwabenBerko:OpenWeatherMap-Android-Library:2.1.0'
     implementation 'com.github.KwabenBerko:OpenWeatherMap-Android-Library:2.1.0'
     implementation "the.bot.box:horoscope-api:1.0.2"
 
