@@ -1,5 +1,6 @@
 package com.example.assistantmajda.assistant
 
+import android.animation.Animator
 import android.annotation.SuppressLint
 import android.bluetooth.BluetoothAdapter
 import android.content.ClipboardManager
@@ -9,6 +10,7 @@ import android.hardware.camera2.CameraManager
 import android.media.Ringtone
 import android.media.RingtoneManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.speech.RecognitionListener
@@ -71,7 +73,7 @@ class AssistantActivity : AppCompatActivity() {
 
     @Suppress("DEPRECATION")
     private val imageDirectory =
-        Environment.getExternalStorageState(Environment.DIRECTORY_PICTURES).toString()
+        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString()
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -330,7 +332,63 @@ class AssistantActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
 //        super.onBackPressed()
-    
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            val cx: Int = binding.assistantConstraintLayout.getRight() - getDips(44)
+            val cy: Int = binding.assistantConstraintLayout.getBottom() - getDips(44)
+
+            val finalRadius: Int = Math.max(
+                binding.assistantConstraintLayout.getWidth(),
+                binding.assistantConstraintLayout.getHeight()
+            )
+
+            val circularReveal = ViewAnimationUtils.createCircularReveal(
+                binding.assistantConstraintLayout,
+                cx,
+                cy,
+                finalRadius.toFloat(),
+                0f
+
+            )
+
+            circularReveal.addListener(object : Animator.AnimatorListener{
+                override fun onAnimationStart(animation: Animator?){
+
+                }
+
+                override fun onAnimationEnd(animation: Animator?) {
+                    binding.assistantConstraintLayout.setVisibility(View.INVISIBLE)
+                    finish()
+                }
+
+                override fun onAnimationCancel(animation: Animator?) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onAnimationRepeat(animation: Animator?) {
+                    TODO("Not yet implemented")
+                }
+            })//end circularReveal.addListener
+
+            circularReveal.duration = 1250
+            circularReveal.start()
+
+        }else{
+            super.onBackPressed()
+        }
+
+
+    }//end super.onBackPressed()
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        textToSpeach.stop()
+        textToSpeach.shutdown()
+        speechRecongnize.cancel()
+        speechRecongnize.destroy()
+        Log.i(logsr,"destroy")
+        Log.i(logtts, "destroy")
 
 
     }

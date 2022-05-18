@@ -35,11 +35,19 @@ android {
         enabled = true
     }
 }
-
+group='com.github.shubham0204'
 
 
 
 dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.2.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -60,7 +68,7 @@ dependencies {
 
 
     //room db
-    def room_version="2.2.6"
+    def room_version = "2.2.6"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
@@ -78,8 +86,5 @@ dependencies {
     implementation 'com.github.KwabenBerko:OpenWeatherMap-Android-Library:2.1.0'
     implementation 'com.github.KwabenBerko:OpenWeatherMap-Android-Library:2.1.0'
     implementation "the.bot.box:horoscope-api:1.0.2"
-
-
-
 
 }
