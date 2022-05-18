@@ -162,25 +162,27 @@ class AssistantActivity : AppCompatActivity() {
 
         speechRecongnize.setRecognitionListener(object : RecognitionListener {
             override fun onReadyForSpeech(params: Bundle?) {
-                Log.d("SR", "started")
+                Log.e("SR", "onReadyForSpeech")
             }
 
             override fun onBeginningOfSpeech() {
+                Log.e("SR", "started")
             }
 
             override fun onRmsChanged(rmsdB: Float) {
+                Log.e("SR", "onRmsChanged")
             }
 
             override fun onBufferReceived(buffer: ByteArray?) {
-                TODO("Not yet implemented")
+                Log.e("SR", "onBufferReceived")
             }
 
             override fun onEndOfSpeech() {
-                Log.d("SR", "onEndOfSpeech")
+                Log.e("SR", "onEndOfSpeech")
             }
 
             override fun onError(error: Int) {
-                TODO("Not yet implemented")
+                Log.e("SR", "onError")
             }
 
             override fun onResults(bundle: Bundle?) {
@@ -213,11 +215,11 @@ class AssistantActivity : AppCompatActivity() {
             }//end en result
 
             override fun onPartialResults(partialResults: Bundle?) {
-                TODO("Not yet implemented")
+                Log.e("SR", "onPartialResults")
             }
 
             override fun onEvent(eventType: Int, params: Bundle?) {
-                TODO("Not yet implemented")
+                Log.e("SR", "onEvent")
             }
 
         })//end speechRecongnize.setRecognitionListener
@@ -320,7 +322,7 @@ class AssistantActivity : AppCompatActivity() {
 
     }
 
-    private fun getDips(dps: Int): Int{
+    private fun getDips(dps: Int): Int {
         val resources: Resources = resources
         return TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
@@ -333,7 +335,7 @@ class AssistantActivity : AppCompatActivity() {
     override fun onBackPressed() {
 //        super.onBackPressed()
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val cx: Int = binding.assistantConstraintLayout.getRight() - getDips(44)
             val cy: Int = binding.assistantConstraintLayout.getBottom() - getDips(44)
 
@@ -351,8 +353,8 @@ class AssistantActivity : AppCompatActivity() {
 
             )
 
-            circularReveal.addListener(object : Animator.AnimatorListener{
-                override fun onAnimationStart(animation: Animator?){
+            circularReveal.addListener(object : Animator.AnimatorListener {
+                override fun onAnimationStart(animation: Animator?) {
 
                 }
 
@@ -373,7 +375,7 @@ class AssistantActivity : AppCompatActivity() {
             circularReveal.duration = 1250
             circularReveal.start()
 
-        }else{
+        } else {
             super.onBackPressed()
         }
 
@@ -387,7 +389,7 @@ class AssistantActivity : AppCompatActivity() {
         textToSpeach.shutdown()
         speechRecongnize.cancel()
         speechRecongnize.destroy()
-        Log.i(logsr,"destroy")
+        Log.i(logsr, "destroy")
         Log.i(logtts, "destroy")
 
 
